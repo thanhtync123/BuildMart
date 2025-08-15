@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from '@/components/ui/button';
 
 function App() {
   return (
@@ -14,8 +14,8 @@ function App() {
       >
         ⭐️ on GitHub
       </a>
-      <div className="flex rounded-md bg-red-500 p-4 text-center text-white hover:bg-red-600">
-        Hello Tailwind
+      <div className="flex items-center justify-between bg-red-500 p-4 text-center">
+        Hello
       </div>
     </main>
   );
