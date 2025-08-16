@@ -12,7 +12,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:3000'  // trỏ API từ frontend dev sang backend local
+      '/api': 'http://localhost:3000' ,
+        '/images': 'http://localhost:3000'// trỏ API từ frontend dev sang backend local
     }
+    
+    
   }
 });

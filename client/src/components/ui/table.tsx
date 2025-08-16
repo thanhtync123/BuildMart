@@ -64,8 +64,8 @@ const Table: React.FC<TableProps> = ({ data, columns, onRowClick }) => {
             sortedData.map((row, idx) => (
               <tr
                 key={idx}
-                className="hover:bg-gray-100 cursor-pointer"
-                onClick={() => onRowClick && onRowClick(row)} // Dòng này rất quan trọng!
+                className={`hover:bg-gray-100${onRowClick ? ' cursor-pointer' : ''}`}
+                onClick={onRowClick ? () => onRowClick(row) : undefined}
               >
                 {columns.map((col) => (
                   <td key={col.key} className="border-b px-4 py-2">

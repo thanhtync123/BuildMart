@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Customer from './pages/Customer';
 import Category from './pages/Category';
+import Product from './pages/Product';
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +26,14 @@ function App() {
                   className="block rounded px-2 py-2 hover:bg-gray-200"
                 >
                   Danh mục
+                </Link>
+              </li>
+                            <li>
+                <Link
+                  to="/products"
+                  className="block rounded px-2 py-2 hover:bg-gray-200"
+                >
+                  Sản phẩm
                 </Link>
               </li>
             </ul>
@@ -63,6 +72,7 @@ function App() {
               />
               <Route path="/customers" element={<Customer />} />
               <Route path="/categories" element={<Category />} />
+              <Route path="/products" element={<Product />} />
             </Routes>
           </main>
         </div>
