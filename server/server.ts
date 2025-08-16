@@ -114,13 +114,9 @@ app.get("/api/product", (req: Request, res: Response) => {
   });
 });
 
-app.post('/api/product', (req: Request, res: Response) => {
-  const { name, category_id, img, unit, price, stock_quantity, description } = req.body;
-  const sql = 'INSERT INTO products (name, category_id, img, unit, price, stock_quantity, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
-  db.query(sql, [name, category_id, img, unit, price, stock_quantity, description], (err, result: mysql.ResultSetHeader) => {
-    if (err) return res.status(500).json({ error: 'Lỗi thêm sản phẩm' });
-    res.json({ id: result.insertId, ...req.body });
-  });
+app.post("/api/product", (req, res) => {
+  console.log("Body nhận được:", req.body);
+  res.json({ message: "Đã nhận", data: req.body });
 });
 
 

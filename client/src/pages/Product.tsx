@@ -22,6 +22,7 @@ function Product() {
   >([]);
   const [products, setProducts] = useState<ProductType[]>([]);
   const [form, setForm] = useState({
+    id: '',
     name: '',
     category_id: '',
     img: '',
@@ -58,6 +59,27 @@ function Product() {
         setProducts(data);
       });
   }, []);
+  const handleAdd = async () => {
+    try {
+      await fetch('/api/product', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      setForm({
+        id: '',
+        name: '',
+        category_id: '',
+        img: '',
+        unit: '',
+        price: '',
+        stock_quantity: '',
+        description: '',
+      });
+    } catch (error) {
+      alert(error + '');
+    }
+  };
 
   return (
     <>
@@ -69,20 +91,48 @@ function Product() {
         value={form.name}
         onChange={handleChange}
       />
-     <Select
+      <Select
         label="Danh mục"
         options={categories}
         selected={form.category_id}
-        onChange={(value: string) =>
-          setForm({ ...form, category_id: value })
-        }
+        onChange={(value: string) => setForm({ ...form, category_id: value })}
       />
-<Input label="Tên file ảnh" id="product-img" name="img" value={form.img} onChange={handleChange} />
-<Input label="Đơn vị" id="product-unit" name="unit" value={form.unit} onChange={handleChange} />
-<Input label="Giá" id="product-price" name="price" value={form.price} onChange={handleChange} />
-<Input label="Tồn kho" id="product-stock_quantity" name="stock_quantity" value={form.stock_quantity} onChange={handleChange} />
-<Textarea label="Mô tả" id="product-description" name="description" value={form.description} onChange={handleChange} />
-      <Button>Thêm sản phẩm</Button>
+      <Input
+        label="Tên file ảnh"
+        id="product-img"
+        name="img"
+        value={form.img}
+        onChange={handleChange}
+      />
+      <Input
+        label="Đơn vị"
+        id="product-unit"
+        name="unit"
+        value={form.unit}
+        onChange={handleChange}
+      />
+      <Input
+        label="Giá"
+        id="product-price"
+        name="price"
+        value={form.price}
+        onChange={handleChange}
+      />
+      <Input
+        label="Tồn kho"
+        id="product-stock_quantity"
+        name="stock_quantity"
+        value={form.stock_quantity}
+        onChange={handleChange}
+      />
+      <Textarea
+        label="Mô tả"
+        id="product-description"
+        name="description"
+        value={form.description}
+        onChange={handleChange}
+      />
+      <Button onClick={handleAdd}>Thêm sản phẩm</Button>
       <img src="" alt="Ảnh sản phẩm" />
       <Table
         columns={[
