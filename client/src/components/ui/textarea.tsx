@@ -3,6 +3,7 @@ import React from 'react';
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   id: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
 }
 
 const Textarea: React.FC<TextareaProps> = ({ label, id, className = '', ...props }) => (

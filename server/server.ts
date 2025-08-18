@@ -94,34 +94,45 @@ app.put("/api/category", (req: Request, res: Response) => {
     res.json({ id, name });
   });
 });
+
+app.post("/api/product", (req: Request, res: Response) => {
+  const { name, category_id, unit, price, stock_quantity, description } =
+    req.body;
+  const values = [
+    name,
+    Number(category_id),
+    unit,
+    Number(price),
+    Number(stock_quantity),
+    description,
+  ];
+  console.log(req.body);
+  const sql = `
+  INSERT INTO products
+    (id, name, category_id, img, unit, price, stock_quantity, description, created_at, updated_at) 
+  VALUES 
+      (NULL, ?, ?, ?, ?, NULL, ?, ?, current_timestamp(), current_timestamp());
+  `;
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ message: "Product inserted" });
+  });
+});
 app.get("/api/product", (req: Request, res: Response) => {
-  const query = `
-        SELECT 
-            p.id,
-            p.name,
-            c.name AS category_name,
-            p.img,
-            p.unit,
-            p.price,
-            p.stock_quantity,
-            p.description
-        FROM products p
-        LEFT JOIN categories c ON p.category_id = c.id;
-    `;
-  db.query(query, (err, results) => {
-    if (err) return res.status(500).json({ error: "Lỗi truy vấn" });
+  const sql = `SELECT p.id, p.name, c.name AS category_id, p.img, p.unit, p.price, p.stock_quantity, p.description FROM products p LEFT JOIN categories c ON p.category_id = c.id;`;
+  db.query(sql, (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
     res.json(results);
   });
 });
 
-app.post("/api/product", (req, res) => {
-  console.log("Body nhận được:", req.body);
-  res.json({ message: "Đã nhận", data: req.body });
-});
-
-
 const PORT = process.env.PORT || 3000;
+// app.post("/api/product", (req: Request, res: Response) => {
 
+// // });
 // Kết nối MySQL
 const db = mysql.createConnection({
   host: "localhost",
